@@ -1,7 +1,7 @@
 # PV239 Mobile application development - Brno Tourist App
 ![kotlin-version](https://img.shields.io/badge/kotlin-1.8.0-orange) 
 # Project: Brno tourist app
-[link]: (https://data.brno.cz/datasets/mestobrno::turistick%C3%A9-okruhy-popular-tourist-routes/explore?location=49.198311%2C16.617438%2C13.00)
+[link](https://data.brno.cz/datasets/mestobrno::turistick%C3%A9-okruhy-popular-tourist-routes/explore?location=49.198311%2C16.617438%2C13.00)
 # Phase 1 *deadline 6. 3. 2023 - Specification of Project
 * **Team:** Illia Kostenko,  Alina Tsykynovska, Max Vagner.
 * **Language:** Kotlin.
