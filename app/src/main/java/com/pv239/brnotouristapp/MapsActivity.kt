@@ -1,12 +1,16 @@
 package com.pv239.brnotouristapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.pv239.brnotouristapp.databinding.ActivityMapsBinding
@@ -15,6 +19,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private val districtRepository = DistrictRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        districtRepository.loadDistricts()
+
+        val districtList: RecyclerView = findViewById(R.id.districtList)
+        districtList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val districtListAdapter = DistrictListAdapter {
+            mMap.animateCamera(
+                CameraUpdateFactory.newCameraPosition(
+                    CameraPosition.Builder()
+                        .target(LatLng(it.lat, it.lng))
+                        .zoom(12.5f)
+                        .tilt(30f)
+                        .build()
+                )
+            )
+        }
+        districtList.adapter = districtListAdapter
+
+        val districtListObserver = Observer<List<District>> {
+            districtListAdapter.submitList(it)
+        }
+        districtRepository.districtList.observe(this, districtListObserver)
     }
 
     /**
@@ -41,8 +69,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val brno = LatLng(49.195061, 16.606836)
+        mMap.addMarker(MarkerOptions().position(brno).title("Marker in Brno"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(brno))
+        val cameraPosition = CameraPosition.Builder()
+            .target(brno)
+            .zoom(12.5f)
+            .tilt(30f)
+            .build()
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
+
 }
