@@ -24,4 +24,14 @@
         <item name="cornerSizeBottomLeft">10%</item>
         <item name="cornerSizeBottomRight">10%</item>
     </style>
+
+    <style name="Theme.BrnoTouristApp.Fullscreen" parent="Theme.BrnoTouristApp">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="ThemeOverlay.BrnoTouristApp.FullscreenContainer" parent="">
+        <item name="android:background">@color/blue_40</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

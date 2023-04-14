@@ -3,4 +3,6 @@
     <string name="title_activity_maps">Map</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="place_details_fragment">Place Details</string>
+    <string name="title_activity_welcome">activity_welcome</string>
+    <string name="welcome_text">Touristic app</string>
 </resources>
