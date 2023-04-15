@@ -28,7 +28,7 @@ class WelcomeActivity : AppCompatActivity() {
         fullscreenContent = binding.fullscreenContent
 
         Handler().postDelayed({
-            val intent = Intent(this, MapsActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_DELAY)
