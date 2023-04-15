@@ -15,7 +15,6 @@ data class PlaceEntity(
     val image: URL,
     val urlLink: URL,
 
-    val contact: ContactEntity,
     val address: AddressEntity
 
 )
