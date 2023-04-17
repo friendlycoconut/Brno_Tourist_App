@@ -1,4 +1,4 @@
-# PV239 Mobile application development - Brno Tourist App
+# MUNI PV239 Mobile application development - Brno Tourist App
 ![kotlin-version](https://img.shields.io/badge/kotlin-1.8.0-orange) 
 # Project: Brno tourist app
 
@@ -19,11 +19,12 @@
 * [x] [Max]: Create map page
 # Phase 3 *deadline 24. 4. 2023 - 2nd Control of project
 * [ ] []: Connect to the API
-* [ ] []: Fix carousel fragment
 * [ ] []: Add places dots
 * [ ] []: Fix the place details fragment and add navigation to it
 * [ ] []: Add info message, when there's no internet (disable GPS and set default area at the map)
 * [ ] []: ?Add information about places dialog window
+* [ ] []: Fix carousel fragment
+* [ ] []: Convert welcome screen activity to a splash screen fragment([docs](https://developer.android.com/develop/ui/views/launch/splash-screen))
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
 * [ ] []: Play with the design
 # Phase 5 *deadline 6. 6. 2023 - Final closing
