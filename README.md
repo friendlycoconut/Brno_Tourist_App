@@ -19,13 +19,12 @@
 * [x] [Max]: Create a button of GPS
 * [x] [Max]: Create a map page
 # Phase 3 *deadline 24. 4. 2023 - 2nd Control of project
-* [ ] [Illia]: Connect to the API
+* [ ] [Illia]: Connect to the API/database (deadline 21.4 23:59)
 * [ ] [Alina]: Add places dots
 * [ ] [Alina]: Fix the place details fragment and add the navigation to it
 * [ ] [Max]: Add an info message, when there's no internet (disable GPS and set default area at the map)
-* [ ] [Max]: ?Add information about places dialog window
 * [ ] [Max]: Convert welcome screen activity to a splash screen fragment ([instruction](https://developer.android.com/develop/ui/views/launch/splash-screen))
-* [ ] [Alina]: Fix the carousel fragment
+* [ ] [Max]: Change the district pictures, add borders (if time/desire)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
 * [ ] []: Change the design
 # Phase 5 *deadline 6. 6. 2023 - Final closing
