@@ -13,8 +13,8 @@ class DistrictRepository {
             District(
                 "Střed",
                 "https://www.mistopisy.cz/modules/pruvodce/media/village/9136/nature.jpg",
-                49.1879143,
-                16.5601508
+                49.195061,
+                16.606836
             ),
             District(
                 "Řečkovice",

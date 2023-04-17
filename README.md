@@ -12,23 +12,20 @@
 * [x] [Illia]: Create Figma demo
 # Phase 2 *deadline 17. 4. 2023 - 1st Control of project
 * [x] [Illia]: Create repository of project
-* [ ] [Alina]: Create start page
-* [ ] [Alina]: Create fragment of carousel
-* [ ] [Alina]: Create fragment of toolbar
-* [ ] [Max]: Create button of GPS
-* [ ] [Max]: Create map page
-* [ ] [Illia]: Import data to the local DB (Room?)
+* [x] [Alina]: Create start page
+* [x] [Alina]: Create fragment of carousel
+* [x] [Alina]: Create fragment of toolbar
+* [x] [Max]: Create button of GPS
+* [x] [Max]: Create map page
 # Phase 3 *deadline 24. 4. 2023 - 2nd Control of project
-* [ ] []:Create navigation to the map dialog window
-* [ ] []: Connect GPS action with map component
-* [ ] []: Connect app to the DB
+* [ ] []: Connect to the API
 * [ ] []: Fix carousel fragment
-* [ ] []: Add information about places dialog window
 * [ ] []: Add places dots
-* [ ] []: Add info message without internet (disable GPS and set default area at the map)
-* [ ] []: 
-* [ ] []: Prepare presentation
+* [ ] []: Fix the place details fragment and add navigation to it
+* [ ] []: Add info message, when there's no internet (disable GPS and set default area at the map)
+* [ ] []: ?Add information about places dialog window
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
+* [ ] []: Play with the design
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Monitor the feedback
 * [ ] []: Prepare the presentation

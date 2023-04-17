@@ -1,15 +1,22 @@
 package com.pv239.brnotouristapp
 
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,6 +24,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.pv239.brnotouristapp.databinding.FragmentMapBinding
 import com.pv239.brnotouristapp.district.District
 import com.pv239.brnotouristapp.district.DistrictListAdapter
@@ -27,14 +37,16 @@ import com.pv239.brnotouristapp.district.DistrictRepository
  */
 class MapFragment : Fragment() {
 
-//    private lateinit var mMap: GoogleMap
+    private lateinit var mMap: GoogleMap
     private val districtRepository = DistrictRepository()
 
     private var _binding: FragmentMapBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -46,14 +58,8 @@ class MapFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val brno = LatLng(49.195061, 16.606836)
-        googleMap.addMarker(MarkerOptions().position(brno).title("Marker in Brno"))
-        val cameraPosition = CameraPosition.Builder()
-            .target(brno)
-            .zoom(12.5f)
-            .tilt(30f)
-            .build()
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        mMap = googleMap
+        showLocation(49.195061, 16.606836)
     }
 
     override fun onCreateView(
@@ -61,8 +67,6 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
-
-//        view?.findViewById<MapView>(R.id.map)?.getMapAsync(this)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
@@ -72,16 +76,7 @@ class MapFragment : Fragment() {
         binding.districtList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val districtListAdapter = DistrictListAdapter {
-//            mMap.animateCamera(
-//                CameraUpdateFactory.newCameraPosition(
-//                    CameraPosition.Builder()
-//                        .target(LatLng(it.lat, it.lng))
-//                        .zoom(12.5f)
-//                        .tilt(30f)
-//                        .build()
-//                )
-//            )
-
+            showLocation(it.lat, it.lng)
         }
 
         binding.districtList.adapter = districtListAdapter
@@ -91,7 +86,17 @@ class MapFragment : Fragment() {
         }
         districtRepository.districtList.observe(requireActivity(), districtListObserver)
 
-        binding.findLocationButton.setOnClickListener { showAlertDialog(requireContext()) }
+
+        requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (!isGranted) {
+                    Toast.makeText(context, "Permission needed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        binding.findLocationButton.setOnClickListener { findLocation() }
 
         return binding.root
     }
@@ -105,20 +110,42 @@ class MapFragment : Fragment() {
         _binding = null
     }
 
-    private fun showAlertDialog(context : Context){
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle("Are you sure?")
-            .setMessage("You will share your GPS data!")
-
-        builder.setPositiveButton(R.string.confirm) { dialogInterface: DialogInterface, i: Int ->
-            dialogInterface.dismiss()
+    private fun findLocation(){
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
 
-        builder.setNegativeButton(R.string.cancel) { dialogInterface: DialogInterface, i: Int ->
-            dialogInterface.cancel()
-        }
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
+            override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
+            override fun isCancellationRequested() = false
+        })
+            .addOnSuccessListener { location: Location? ->
+                if (location == null)
+                    Toast.makeText(context, "Cannot get location.", Toast.LENGTH_SHORT).show()
+                else {
+                    showLocation(location.latitude, location.longitude)
+                }
+            }
 
-        builder.create()
-        builder.show()
+    }
+
+    private fun showLocation(lat: Double, lng: Double) {
+        mMap.animateCamera(
+            CameraUpdateFactory.newCameraPosition(
+                CameraPosition.Builder()
+                    .target(LatLng(lat, lng))
+                    .zoom(15f)
+                    .tilt(30f)
+                    .build()
+            )
+        )
     }
 }
