@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/DiscoverFragment">
+    app:startDestination="@id/MapFragment">
 
-    <fragment
-        android:id="@+id/DiscoverFragment"
-        android:name="com.pv239.brnotouristapp.DiscoverFragment"
-        android:label="@string/discover_fragment_label"
-        tools:layout="@layout/fragment_discover">
-
-        <action
-            android:id="@+id/action_DiscoverFragment_to_MapFragment"
-            app:destination="@id/MapFragment" />
-    </fragment>
     <fragment
         android:id="@+id/MapFragment"
         android:name="com.pv239.brnotouristapp.MapFragment"
         android:label="@string/map_fragment_label"
         tools:layout="@layout/fragment_map">
         <action
-            android:id="@+id/action_MapFragment_to_DiscoverFragment"
-            app:destination="@id/DiscoverFragment" />
+            android:id="@+id/action_MapFragment_to_placeDetails22"
+            app:destination="@id/placeDetails2" />
     </fragment>
+    <fragment
+        android:id="@+id/placeDetails2"
+        android:name="com.pv239.brnotouristapp.place.PlaceDetails"
+        android:label="fragment_place_details"
+        tools:layout="@layout/fragment_place_details" />
 </navigation>

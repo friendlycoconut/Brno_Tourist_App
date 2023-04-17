@@ -1,4 +1,4 @@
-package com.pv239.brnotouristapp
+package com.pv239.brnotouristapp.district
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.pv239.brnotouristapp.R
 
 class DistrictViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val districtTextView: TextView = view.findViewById(R.id.districtTextView)

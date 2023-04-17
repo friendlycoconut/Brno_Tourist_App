@@ -1,10 +1,11 @@
-package com.pv239.brnotouristapp
+package com.pv239.brnotouristapp.place
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.pv239.brnotouristapp.R
 
 class PlaceDetails : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.pv239.brnotouristapp
+package com.pv239.brnotouristapp.district
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

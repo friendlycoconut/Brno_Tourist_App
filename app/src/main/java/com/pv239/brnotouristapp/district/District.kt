@@ -1,4 +1,4 @@
-package com.pv239.brnotouristapp
+package com.pv239.brnotouristapp.district
 
 data class District(
     val name: String,

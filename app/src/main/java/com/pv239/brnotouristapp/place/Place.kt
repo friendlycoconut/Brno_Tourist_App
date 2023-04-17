@@ -1,4 +1,4 @@
-package com.pv239.brnotouristapp
+package com.pv239.brnotouristapp.place
 
 data class Place(
     val name: String,

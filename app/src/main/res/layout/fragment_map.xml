@@ -4,22 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MapFragment">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="86dp"
         map:uiZoomControls="true"
         map:uiCompass="true"
         map:uiRotateGestures="true"
         map:cameraTilt="30"
         map:mapType="terrain"
         />
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/map"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:context=".MainActivity"-->
+<!--        tools:layout_editor_absoluteX="-16dp"-->
+<!--        tools:layout_editor_absoluteY="86dp"-->
+<!--        map:uiZoomControls="true"-->
+<!--        map:uiCompass="true"-->
+<!--        map:uiRotateGestures="true"-->
+<!--        map:cameraTilt="30"-->
+<!--        map:mapType="terrain"-->
+<!--        />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/findLocationButton"
