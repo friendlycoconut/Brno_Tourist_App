@@ -31,6 +31,7 @@ import com.pv239.brnotouristapp.databinding.FragmentMapBinding
 import com.pv239.brnotouristapp.district.District
 import com.pv239.brnotouristapp.district.DistrictListAdapter
 import com.pv239.brnotouristapp.district.DistrictRepository
+import com.pv239.brnotouristapp.repository.GeoPointRepository
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -39,6 +40,7 @@ class MapFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
     private val districtRepository = DistrictRepository()
+    private val geoPointRepository = GeoPointRepository()
 
     private var _binding: FragmentMapBinding? = null
     // This property is only valid between onCreateView and
@@ -72,6 +74,8 @@ class MapFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
 
         districtRepository.loadDistricts()
+
+        geoPointRepository.getGeoPoints()
 
         binding.districtList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
