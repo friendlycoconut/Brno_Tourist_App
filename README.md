@@ -23,10 +23,12 @@
 * [ ] [Alina]: Add places dots
 * [ ] [Alina]: Fix the place details fragment and add the navigation to it
 * [ ] [Max]: Add an info message, when there's no internet (disable GPS and set default area at the map)
-* [ ] [Max]: Convert welcome screen activity to a splash screen fragment ([instruction](https://developer.android.com/develop/ui/views/launch/splash-screen))
-* [ ] [Max]: Change the district pictures, add borders (if time/desire)
+* [ ] [Max]: Convert welcome screen activity to a splash screen fragment ([look here](https://developer.android.com/develop/ui/views/launch/splash-screen))
+* [ ] [Max]: Change the district pictures, add borders (very optional)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
 * [ ] []: Change the design
+* [ ] []: Add the types to places
+* [ ] []: Change the app icon 
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
 * [ ] []: Prepare the presentation

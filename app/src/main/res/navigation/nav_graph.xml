@@ -11,12 +11,36 @@
         android:label="@string/map_fragment_label"
         tools:layout="@layout/fragment_map">
         <action
-            android:id="@+id/action_MapFragment_to_placeDetails22"
-            app:destination="@id/placeDetails2" />
+            android:id="@+id/action_MapFragment_to_placeDetails"
+            app:destination="@id/placeDetails2"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/placeDetails2"
         android:name="com.pv239.brnotouristapp.place.PlaceDetails"
-        android:label="fragment_place_details"
-        tools:layout="@layout/fragment_place_details" />
+        android:label="@string/fragment_place_details"
+        tools:layout="@layout/fragment_place_details" >
+        <action
+            android:id="@+id/action_placeDetails_to_MapFragment"
+            app:destination="@id/MapFragment" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
