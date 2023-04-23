@@ -1,22 +1,22 @@
 package com.pv239.brnotouristapp.api.response
 
-data class GeoPointResponse (
+
+data class GeoPointResponse(
     val type: String,
     val features: List<Feature>
+)
 
-
-        )
 
 data class Feature(
     val type: String,
     val id: String,
     val geometry: GeometryType,
-    val property: PropertyType
+    val properties: PropertyType
 )
 
 data class GeometryType(
     val type: String,
-    val coordinates: List<Double>
+    val coordinates: List<String>
 )
 
 data class PropertyType(

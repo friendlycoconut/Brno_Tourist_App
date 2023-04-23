@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import com.pv239.brnotouristapp.api.data.FeaturePointEntity
 import com.pv239.brnotouristapp.databinding.FragmentMapBinding
 import com.pv239.brnotouristapp.district.District
 import com.pv239.brnotouristapp.district.DistrictListAdapter
@@ -40,7 +41,7 @@ class MapFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
     private val districtRepository = DistrictRepository()
-    private val geoPointRepository = GeoPointRepository()
+
 
     private var _binding: FragmentMapBinding? = null
     // This property is only valid between onCreateView and
@@ -49,6 +50,11 @@ class MapFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    private val geoPointRepository: GeoPointRepository by lazy {
+        GeoPointRepository(requireContext())
+    }
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -64,9 +70,10 @@ class MapFragment : Fragment() {
         showLocation(49.195061, 16.606836)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
 
@@ -75,7 +82,17 @@ class MapFragment : Fragment() {
 
         districtRepository.loadDistricts()
 
-        geoPointRepository.getGeoPoints()
+        geoPointRepository.getGeoPoints(
+            success = { featurePointEntities: List<FeaturePointEntity> ->
+                addPointFeatureMarkers(
+                    featurePointEntities
+                )
+            },
+            fail = { featurePointEntities: List<FeaturePointEntity> ->
+                addPointFeatureMarkers(
+                    featurePointEntities
+                )
+            })
 
         binding.districtList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -151,5 +168,29 @@ class MapFragment : Fragment() {
                     .build()
             )
         )
+    }
+
+    private fun showPointMarkers() {
+        val sydney = LatLng(49.195061, 16.506836)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(sydney)
+                .title("Marker in Sydney")
+        )
+    }
+
+    private fun addPointFeatureMarkers(featurePointEntities: List<FeaturePointEntity>) {
+        featurePointEntities.forEach {
+
+            if (it.name != null && it.latitude != null && it.longitude != null) {
+                val latLngPoint = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
+                mMap.addMarker(
+                    MarkerOptions()
+                        .position(latLngPoint)
+                        .title(it.name)
+                )
+            }
+        }
+
     }
 }

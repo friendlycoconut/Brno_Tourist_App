@@ -1,10 +1,16 @@
 package com.pv239.brnotouristapp.api
 
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.File
+
 
 object RetrofitUtil {
 
