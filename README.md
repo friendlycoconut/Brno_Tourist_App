@@ -32,6 +32,8 @@
 * [ ] []: Change the design
 * [ ] []: (optional) Remove the action bar?
 * [ ] []: (optional) Convert welcome activity to fragment?
+* [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
+* [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
 * [ ] []: Prepare the presentation
