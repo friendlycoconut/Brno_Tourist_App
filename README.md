@@ -26,10 +26,11 @@
 * [ ] [Max]: Convert welcome screen activity to a splash screen fragment ([look here](https://developer.android.com/develop/ui/views/launch/splash-screen))
 * [ ] [Max]: Change the district pictures, add borders (very optional)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
-* [ ] [Alina]: Add the types to places
+* [ ] [Alina]: Add the types pictures to places
 * [ ] [Alina]: add pictures to districts (how to load SVG images?)
 * [ ] []: Change the app icon 
 * [ ] []: Change the design
+* [ ] []: (optional) remove the action bar?
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
 * [ ] []: Prepare the presentation
