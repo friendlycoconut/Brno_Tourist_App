@@ -30,7 +30,8 @@
 * [ ] [Alina]: add pictures to districts (how to load SVG images?)
 * [ ] []: Change the app icon 
 * [ ] []: Change the design
-* [ ] []: (optional) remove the action bar?
+* [ ] []: (optional) Remove the action bar?
+* [ ] []: (optional) Convert welcome activity to fragment?
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
 * [ ] []: Prepare the presentation
