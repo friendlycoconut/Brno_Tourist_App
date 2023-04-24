@@ -19,21 +19,23 @@
 * [x] [Max]: Create a button of GPS
 * [x] [Max]: Create a map page
 # Phase 3 *deadline 24. 4. 2023 - 2nd Control of project
-* [ ] [Illia]: Connect to the API/database (deadline 21.4 23:59)
-* [ ] [Alina]: Add places dots
-* [ ] [Alina]: Fix the place details fragment and add the navigation to it
-* [ ] [Max]: Add an info message, when there's no internet (disable GPS and set default area at the map)
-* [ ] [Max]: Convert welcome screen activity to a splash screen fragment ([look here](https://developer.android.com/develop/ui/views/launch/splash-screen))
-* [ ] [Max]: Change the district pictures, add borders (very optional)
+* [x] [Illia]: Connect to the API/database (deadline 21.4 23:59)
+* [x] [Alina]: Add places dots
+* [x] [Alina]: Fix the place details fragment and add the navigation to it
+* [x] [Max]: Add an info message, when there's no internet (disable GPS and set default area at the map)
+* [x] [Max]: Convert welcome screen activity to a splash screen fragment ([look here](https://developer.android.com/develop/ui/views/launch/splash-screen))
+* [x] [Max]: Change the district pictures, add borders (very optional)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
-* [ ] [Alina]: Add the types pictures to places
-* [ ] [Alina]: add pictures to districts (how to load SVG images?)
-* [ ] []: Change the app icon 
-* [ ] []: Change the design
-* [ ] []: (optional) Remove the action bar?
-* [ ] []: (optional) Convert welcome activity to fragment?
+* [ ] [Illia]: Change the app icon
+* [ ] [Illia]: (optional) Offline RecyclerView
+* [ ] [Alina/Illia]: Add the types pictures to places (or change the colors of markers), sorting for types
+* [ ] [Alina]: Add pictures to districts (how to load SVG images?)
 * [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
 * [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
+* [ ] [Max]: (optional) Remove the action bar?
+* [ ] [Max]: (optional) Convert welcome activity to fragment?
+* [ ] [Max]: (optional) Clustering 
+* [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
 * [ ] []: Prepare the presentation
