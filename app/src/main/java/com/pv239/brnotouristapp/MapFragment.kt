@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -35,6 +36,7 @@ import com.pv239.brnotouristapp.district.District
 import com.pv239.brnotouristapp.district.DistrictListAdapter
 import com.pv239.brnotouristapp.district.DistrictRepository
 import com.pv239.brnotouristapp.repository.GeoPointRepository
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -125,6 +127,16 @@ class MapFragment : Fragment() {
         binding.findLocationButton.setOnClickListener { findLocation() }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
     }
 
     override fun onDestroyView() {
