@@ -40,7 +40,7 @@
             android:name=".WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
-            android:label="@string/title_activity_welcome"
+            android:label="@string/app_name"
             android:theme="@style/Theme.BrnoTouristApp.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
