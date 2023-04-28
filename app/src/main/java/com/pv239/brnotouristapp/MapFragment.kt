@@ -1,6 +1,7 @@
 package com.pv239.brnotouristapp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -45,6 +46,7 @@ class MapFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<FeaturePointEntity>
+    private var isMapInitialized : Boolean = false
 
 
     private val districtRepository = DistrictRepository()
@@ -62,6 +64,7 @@ class MapFragment : Fragment() {
         GeoPointRepository(requireContext())
     }
 
+    @SuppressLint("PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
         mMap.clear()
@@ -77,7 +80,9 @@ class MapFragment : Fragment() {
         mMap.setOnCameraIdleListener(clusterManager)
         mMap.setOnMarkerClickListener(clusterManager)
 
-        showLocation(49.194167, 16.608611)
+        if(!isMapInitialized)
+            showLocation(49.194167, 16.608611)
+            isMapInitialized = true
     }
 
 
