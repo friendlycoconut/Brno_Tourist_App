@@ -32,9 +32,9 @@
 * [ ] [Alina]: Add pictures to districts (how to load SVG images?)
 * [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
 * [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
-* [ ] [Max]: (optional) Remove the action bar?
+* [x] [Max]: (optional) Remove the action bar?
 * [ ] [Max]: (optional) Convert welcome activity to fragment?
-* [ ] [Max]: (optional) Clustering 
+* [x] [Max]: (optional) Clustering 
 * [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [ ] []: Implement the feedback
