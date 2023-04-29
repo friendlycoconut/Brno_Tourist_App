@@ -32,10 +32,13 @@ class WelcomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
         fullscreenContent = binding.fullscreenContent
 
+        var sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
         Handler().postDelayed({
             if (isNetworkAvailable()) {
+                sharedPreferences.edit().putBoolean("isOnline",true).apply()
                 // If online, start the content download
             } else {
+                sharedPreferences.edit().putBoolean("isOnline",false).apply()
                 // If offline, show an error message
                 showToastMessage(getString(R.string.offline_mode))
             }

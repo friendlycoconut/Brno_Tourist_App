@@ -80,14 +80,16 @@ class MapFragment : Fragment() {
         mMap.setOnCameraIdleListener(clusterManager)
         mMap.setOnMarkerClickListener(clusterManager)
 
-        if(!isMapInitialized)
+        if(!isMapInitialized) {
             showLocation(49.194167, 16.608611)
             isMapInitialized = true
+        }
     }
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
@@ -95,6 +97,7 @@ class MapFragment : Fragment() {
         val isOnline = activity?.getSharedPreferences("preferences", Context.MODE_PRIVATE)?.getBoolean("isOnline", false) ?: false
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        
         mapFragment?.getMapAsync(callback)
 
         districtRepository.loadDistricts()
