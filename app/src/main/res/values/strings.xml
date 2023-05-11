@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Brno Tourist App</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_welcome">activity_welcome</string>
+    <string name="title_activity_welcome">Brno tourist app</string>
     <string name="welcome_text">Touristic app</string>
     <string name="title_activity_main">Touristic app</string>
     <string name="fragment_place_details">Detail</string>

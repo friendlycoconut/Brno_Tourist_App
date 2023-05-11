@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -70,6 +73,17 @@ class MapFragment : Fragment() {
          */
         mMap = googleMap
         showLocation(49.194167, 16.608611)
+        geoPointRepository.getGeoPoints(
+            success = { featurePointEntities: List<FeaturePointEntity> ->
+                addPointFeatureMarkers(
+                    featurePointEntities
+                )
+            },
+            fail = { featurePointEntities: List<FeaturePointEntity> ->
+                addPointFeatureMarkers(
+                    featurePointEntities
+                )
+            })
         mMap.setOnMarkerClickListener {
             showDetails(it)
         }
@@ -87,17 +101,6 @@ class MapFragment : Fragment() {
 
         districtRepository.loadDistricts()
 
-        geoPointRepository.getGeoPoints(
-            success = { featurePointEntities: List<FeaturePointEntity> ->
-                addPointFeatureMarkers(
-                    featurePointEntities
-                )
-            },
-            fail = { featurePointEntities: List<FeaturePointEntity> ->
-                addPointFeatureMarkers(
-                    featurePointEntities
-                )
-            })
 
         binding.districtList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -188,13 +191,32 @@ class MapFragment : Fragment() {
 
             if (it.name != null && it.latitude != null && it.longitude != null) {
                 val latLngPoint = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
-                mMap.addMarker(
-                    MarkerOptions()
-                        .position(latLngPoint)
-                        .title(it.name)
-                )?.tag = it
-            }
-        }
 
+
+                if(this::mMap.isInitialized){
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .snippet(it.name)
+                            .icon(selectTypePlace(it.name))
+                            .position(latLngPoint)
+                            .title(it.name)
+
+                    )?.tag = it
+                }
+
+                    }
+            }}
+
+    private fun selectTypePlace(placeName: String): BitmapDescriptor{
+        if(placeName.contains("muzeum",ignoreCase = true)){return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)}
+        if(placeName.contains("divadlo",ignoreCase = true)){return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)}
+        if(placeName.contains("kostel",ignoreCase = true)){return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)}
+        if(placeName.contains("kated",ignoreCase = true)){return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)}
+        if(placeName.contains("Náměstí", ignoreCase = true)
+            ||placeName.contains("Trh", ignoreCase = true)){return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)}
+
+        return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
     }
 }
+
+
