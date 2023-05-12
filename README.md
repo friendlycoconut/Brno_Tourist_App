@@ -26,9 +26,9 @@
 * [x] [Max]: Convert welcome screen activity to a splash screen fragment ([look here](https://developer.android.com/develop/ui/views/launch/splash-screen))
 * [x] [Max]: Change the district pictures, add borders (very optional)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
-* [ ] [Illia]: Change the app icon
+* [x] [Illia]: Change the app icon
 * [x] [Illia]: (optional) Offline RecyclerView
-* [ ] [Alina/Illia]: Add the types pictures to places (or change the colors of markers), sorting for types
+* [x] [Alina/Illia]: (optional) Add the types pictures to places (or change the colors of markers), sorting for types
 * [ ] [Alina]: Add pictures to districts (how to load SVG images?)
 * [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
 * [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
