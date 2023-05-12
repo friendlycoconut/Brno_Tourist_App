@@ -1,12 +1,10 @@
 package com.pv239.brnotouristapp.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.pv239.brnotouristapp.api.data.FeaturePointEntity
-import com.pv239.brnotouristapp.api.response.Feature
 import com.pv239.brnotouristapp.dao.FeatureDao
 
 

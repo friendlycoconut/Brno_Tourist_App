@@ -66,14 +66,11 @@ class MapFragment : Fragment() {
 
     @SuppressLint("PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
+        if(isMapInitialized) return@OnMapReadyCallback
         mMap = googleMap
-        mMap.clear()
-        geoPointRepository.getGeoPoints(
-            success = { addPointFeatureMarkers(it) },
-            fail = { addPointFeatureMarkers(it) }
-        )
 
         clusterManager = ClusterManager(activity,googleMap)
+        clusterManager.renderer = CustomClusterRenderer(activity, googleMap, clusterManager)
         clusterManager.setOnClusterItemClickListener { showDetails(it) }
         clusterManager.setOnClusterClickListener {
             showLocation(it.position.latitude,it.position.longitude)
@@ -81,13 +78,17 @@ class MapFragment : Fragment() {
         }
         clusterManager.setAnimation(false)
 
+        geoPointRepository.getGeoPoints(
+            success = { clusterManager.addItems(it) },
+            fail = { clusterManager.addItems(it) }
+        )
+
+        clusterManager.cluster()
         mMap.setOnCameraIdleListener(clusterManager)
         mMap.setOnMarkerClickListener(clusterManager)
 
-        if(!isMapInitialized) {
-            showLocation(49.194167, 16.608611)
-            isMapInitialized = true
-        }
+        showLocation(49.194167, 16.608611)
+        isMapInitialized = true
     }
 
 
@@ -212,10 +213,4 @@ class MapFragment : Fragment() {
         return true
     }
 
-    private fun addPointFeatureMarkers(featurePointEntities: List<FeaturePointEntity>) {
-
-        clusterManager.addItems(featurePointEntities)
-        clusterManager.cluster()
-
-    }
 }

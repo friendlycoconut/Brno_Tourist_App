@@ -35,13 +35,17 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.BrnoTouristApp.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.BrnoTouristApp.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BrnoTouristApp.Fullscreen">
+            android:theme="@style/Theme.BrnoTouristApp.Fullscreen"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,16 +1,15 @@
 package com.pv239.brnotouristapp
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.pv239.brnotouristapp.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
@@ -32,7 +31,7 @@ class WelcomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
         fullscreenContent = binding.fullscreenContent
 
-        var sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE)
         Handler().postDelayed({
             if (isNetworkAvailable()) {
                 sharedPreferences.edit().putBoolean("isOnline",true).apply()

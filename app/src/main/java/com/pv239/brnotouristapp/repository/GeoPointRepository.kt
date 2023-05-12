@@ -10,7 +10,6 @@ import com.pv239.brnotouristapp.api.data.FeaturePointEntity
 import com.pv239.brnotouristapp.api.response.GeoPointResponse
 import com.pv239.brnotouristapp.dao.FeatureDao
 import com.pv239.brnotouristapp.database.FeatureDatabase
-import com.pv239.brnotouristapp.district.District
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
