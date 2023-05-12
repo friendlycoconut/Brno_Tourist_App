@@ -68,6 +68,10 @@ class MapFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
         mMap.clear()
+        geoPointRepository.getGeoPoints(
+            success = { addPointFeatureMarkers(it) },
+            fail = { addPointFeatureMarkers(it) }
+        )
 
         clusterManager = ClusterManager(activity,googleMap)
         clusterManager.setOnClusterItemClickListener { showDetails(it) }
@@ -102,10 +106,7 @@ class MapFragment : Fragment() {
 
         districtRepository.loadDistricts()
 
-        geoPointRepository.getGeoPoints(
-            success = { addPointFeatureMarkers(it) },
-            fail = { addPointFeatureMarkers(it) }
-        )
+
 
         requestPermissionLauncher =
             registerForActivityResult(

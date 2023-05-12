@@ -27,7 +27,7 @@
 * [x] [Max]: Change the district pictures, add borders (very optional)
 # Phase 4 *deadline 12. 5. 2023 - Send project to control
 * [ ] [Illia]: Change the app icon
-* [ ] [Illia]: (optional) Offline RecyclerView
+* [x] [Illia]: (optional) Offline RecyclerView
 * [ ] [Alina/Illia]: Add the types pictures to places (or change the colors of markers), sorting for types
 * [ ] [Alina]: Add pictures to districts (how to load SVG images?)
 * [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
