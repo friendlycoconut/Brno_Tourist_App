@@ -107,19 +107,26 @@ class MapFragment : Fragment() {
             fail = { addPointFeatureMarkers(it) }
         )
 
+        requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (!isGranted) {
+                    Toast.makeText(context, "Permission needed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
         binding.districtList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val districtListAdapter = DistrictListAdapter {
             showLocation(it.lat, it.lng)
         }
-
         binding.districtList.adapter = districtListAdapter
-
         val districtListObserver = Observer<List<District>> {
             districtListAdapter.submitList(it)
         }
         districtRepository.districtList.observe(requireActivity(), districtListObserver)
-
 
         requestPermissionLauncher =
             registerForActivityResult(
@@ -132,6 +139,7 @@ class MapFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         if (!isOnline) binding.findLocationButton.isEnabled = false
+
         binding.findLocationButton.setOnClickListener { findLocation() }
 
         return binding.root
@@ -204,6 +212,7 @@ class MapFragment : Fragment() {
     }
 
     private fun addPointFeatureMarkers(featurePointEntities: List<FeaturePointEntity>) {
+
         clusterManager.addItems(featurePointEntities)
         clusterManager.cluster()
 
