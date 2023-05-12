@@ -33,7 +33,6 @@
 * [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
 * [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
 * [x] [Max]: (optional) Remove the action bar?
-* [ ] [Max]: (optional) Convert welcome activity to fragment?
 * [x] [Max]: (optional) Clustering 
 * [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
