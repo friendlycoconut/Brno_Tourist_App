@@ -99,20 +99,6 @@ class MapFragment : Fragment() {
                 )
             })
 
-        binding.districtList.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val districtListAdapter = DistrictListAdapter {
-            showLocation(it.lat, it.lng)
-        }
-
-        binding.districtList.adapter = districtListAdapter
-
-        val districtListObserver = Observer<List<District>> {
-            districtListAdapter.submitList(it)
-        }
-        districtRepository.districtList.observe(requireActivity(), districtListObserver)
-
-
         requestPermissionLauncher =
             registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
@@ -122,6 +108,17 @@ class MapFragment : Fragment() {
                 }
             }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        binding.districtList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val districtListAdapter = DistrictListAdapter {
+            showLocation(it.lat, it.lng)
+        }
+        binding.districtList.adapter = districtListAdapter
+        val districtListObserver = Observer<List<District>> {
+            districtListAdapter.submitList(it)
+        }
+        districtRepository.districtList.observe(requireActivity(), districtListObserver)
         binding.findLocationButton.setOnClickListener { findLocation() }
 
         return binding.root
@@ -195,6 +192,5 @@ class MapFragment : Fragment() {
                 )?.tag = it
             }
         }
-
     }
 }

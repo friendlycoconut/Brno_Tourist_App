@@ -1,6 +1,5 @@
 package com.pv239.brnotouristapp.district
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.pv239.brnotouristapp.R
 
 
