@@ -1,6 +1,8 @@
 package com.pv239.brnotouristapp
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -24,11 +27,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import com.google.maps.android.clustering.ClusterManager
 import com.pv239.brnotouristapp.api.data.FeaturePointEntity
 import com.pv239.brnotouristapp.databinding.FragmentMapBinding
 import com.pv239.brnotouristapp.district.District
@@ -36,12 +38,17 @@ import com.pv239.brnotouristapp.district.DistrictListAdapter
 import com.pv239.brnotouristapp.district.DistrictRepository
 import com.pv239.brnotouristapp.repository.GeoPointRepository
 
+
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class MapFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var clusterManager: ClusterManager<FeaturePointEntity>
+    private var isMapInitialized : Boolean = false
+
+
     private val districtRepository = DistrictRepository()
 
 
@@ -57,47 +64,48 @@ class MapFragment : Fragment() {
         GeoPointRepository(requireContext())
     }
 
-
+    @SuppressLint("PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         mMap = googleMap
-        showLocation(49.194167, 16.608611)
-        mMap.setOnMarkerClickListener {
-            showDetails(it)
+        mMap.clear()
+
+        clusterManager = ClusterManager(activity,googleMap)
+        clusterManager.setOnClusterItemClickListener { showDetails(it) }
+        clusterManager.setOnClusterClickListener {
+            showLocation(it.position.latitude,it.position.longitude)
+            true
+        }
+        clusterManager.setAnimation(false)
+
+        mMap.setOnCameraIdleListener(clusterManager)
+        mMap.setOnMarkerClickListener(clusterManager)
+
+        if(!isMapInitialized) {
+            showLocation(49.194167, 16.608611)
+            isMapInitialized = true
         }
     }
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
 
+        val isOnline = activity?.getSharedPreferences("preferences", Context.MODE_PRIVATE)?.getBoolean("isOnline", false) ?: false
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        
         mapFragment?.getMapAsync(callback)
 
         districtRepository.loadDistricts()
 
         geoPointRepository.getGeoPoints(
-            success = { featurePointEntities: List<FeaturePointEntity> ->
-                addPointFeatureMarkers(
-                    featurePointEntities
-                )
-            },
-            fail = { featurePointEntities: List<FeaturePointEntity> ->
-                addPointFeatureMarkers(
-                    featurePointEntities
-                )
-            })
+            success = { addPointFeatureMarkers(it) },
+            fail = { addPointFeatureMarkers(it) }
+        )
 
         requestPermissionLauncher =
             registerForActivityResult(
@@ -119,9 +127,32 @@ class MapFragment : Fragment() {
             districtListAdapter.submitList(it)
         }
         districtRepository.districtList.observe(requireActivity(), districtListObserver)
+
+        requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (!isGranted) {
+                    Toast.makeText(context, "Permission needed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        if (!isOnline) binding.findLocationButton.isEnabled = false
+
         binding.findLocationButton.setOnClickListener { findLocation() }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)?.supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
     }
 
     override fun onDestroyView() {
@@ -168,8 +199,8 @@ class MapFragment : Fragment() {
         )
     }
 
-    private fun showDetails(marker: Marker): Boolean {
-        val place: FeaturePointEntity = marker.tag as FeaturePointEntity
+    private fun showDetails(pointEntity: FeaturePointEntity): Boolean {
+        val place: FeaturePointEntity = pointEntity
         val action = MapFragmentDirections.actionMapFragmentToPlaceDetails(
             place.name.replace("&nbsp;",  " "),
             place.address.replace("&nbsp;",   " "),
@@ -181,16 +212,9 @@ class MapFragment : Fragment() {
     }
 
     private fun addPointFeatureMarkers(featurePointEntities: List<FeaturePointEntity>) {
-        featurePointEntities.forEach {
 
-            if (it.name != null && it.latitude != null && it.longitude != null) {
-                val latLngPoint = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
-                mMap.addMarker(
-                    MarkerOptions()
-                        .position(latLngPoint)
-                        .title(it.name)
-                )?.tag = it
-            }
-        }
+        clusterManager.addItems(featurePointEntities)
+        clusterManager.cluster()
+
     }
 }
