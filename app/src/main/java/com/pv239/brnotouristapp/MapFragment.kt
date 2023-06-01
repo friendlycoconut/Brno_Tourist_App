@@ -86,6 +86,7 @@ class MapFragment : Fragment() {
         clusterManager.cluster()
         mMap.setOnCameraIdleListener(clusterManager)
         mMap.setOnMarkerClickListener(clusterManager)
+        mMap.uiSettings.isMyLocationButtonEnabled = false
 
         showLocation(49.194167, 16.608611)
         isMapInitialized = true
@@ -180,9 +181,11 @@ class MapFragment : Fragment() {
             override fun isCancellationRequested() = false
         })
             .addOnSuccessListener { location: Location? ->
-                if (location == null)
+                if (location == null) {
+                    mMap.isMyLocationEnabled = false
                     Toast.makeText(context, "Please turn on the GPS.", Toast.LENGTH_SHORT).show()
-                else {
+                } else {
+                    mMap.isMyLocationEnabled = true
                     showLocation(location.latitude, location.longitude)
                 }
             }
@@ -195,7 +198,6 @@ class MapFragment : Fragment() {
                 CameraPosition.Builder()
                     .target(LatLng(lat, lng))
                     .zoom(15f)
-                    .tilt(30f)
                     .build()
             )
         )
