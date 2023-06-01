@@ -36,5 +36,5 @@
 * [x] [Max]: (optional) Clustering 
 * [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
-* [ ] []: Add the marker to current location
+* [x] [Max]: Add the marker to current location
 * [ ] []: Prepare the presentation
