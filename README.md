@@ -37,4 +37,3 @@
 * [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [x] [Max]: Add the marker to current location
-* [ ] []: Prepare the presentation
