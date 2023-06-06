@@ -30,10 +30,7 @@
 * [x] [Illia]: (optional) Offline RecyclerView
 * [x] [Alina/Illia]: (optional) Add the types pictures to places (or change the colors of markers), sorting for types
 * [X] [Alina]: Add pictures to districts (how to load SVG images?)
-* [ ] [Alina]: (optional) MapFragment: show everything (including location button) only after the map is loaded
-* [ ] [Alina]: (optional) DetailFragment: show all texts only after the image is loaded
 * [x] [Max]: (optional) Remove the action bar?
 * [x] [Max]: (optional) Clustering 
-* [ ] [Max]: (optional) Add borders to districts
 # Phase 5 *deadline 6. 6. 2023 - Final closing
 * [x] [Max]: Add the marker to current location
